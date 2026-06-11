@@ -1,18 +1,17 @@
-﻿using EmployeeLeaveManagementAPI.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using EmployeeLeaveManagementAPI.Repositories;
+using EmployeeLeaveManagementAPI.DTOs;
 
 namespace EmployeeLeaveManagementAPI.Controllers;
-
 
 [ApiController]
 [Route("api/[controller]")]
 
-public class LeaveController : ControllerBase
+public class LeavesController : ControllerBase
 {
     private readonly ILeaveRepository _leaveRepository;
 
-    public LeaveController(ILeaveRepository leaveRepository)
+    public LeavesController(ILeaveRepository leaveRepository)
     {
         _leaveRepository = leaveRepository;
     }
@@ -30,15 +29,15 @@ public class LeaveController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateLeave(CreateLeaveRequestDtos dto)
+    public async Task<IActionResult> CreateLeave(SubmitLeaveDto dto)
     {
         return Ok(await _leaveRepository.CreateLeave(dto));
     }
 
-    [HttpPut]
-    public async Task<IActionResult> UpdateLeave(LeaveRequest leave)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateLeave(int id, SubmitLeaveDto dto)
     {
-        return Ok(await _leaveRepository.UpdateLeave(leave));
+        return Ok(await _leaveRepository.UpdateLeave(id, dto));
     }
 
     [HttpDelete("{id}")]
@@ -47,27 +46,27 @@ public class LeaveController : ControllerBase
         return Ok(await _leaveRepository.DeleteLeave(id));
     }
 
-    [HttpPut("approve/{id}")]
-    public async Task<IActionResult> ApproveLeave(int id)
+    [HttpPost("approve/{id}")]
+    public async Task<IActionResult> ApproveLeave(int id, LeaveActionDto dto)
     {
-        return Ok(await _leaveRepository.ApproveLeave(id));
+        return Ok(await _leaveRepository.ApproveLeave(id, dto));
     }
 
-    [HttpPut("reject/{id}")]
-    public async Task<IActionResult> RejectLeave(int id)
+    [HttpPost("reject/{id}")]
+    public async Task<IActionResult> RejectLeave(int id, LeaveActionDto dto)
     {
-        return Ok(await _leaveRepository.RejectLeave(id));
+        return Ok(await _leaveRepository.RejectLeave(id, dto));
     }
 
-    [HttpGet("status")]
+    [HttpGet("status/{status}")]
     public async Task<IActionResult> FilterByStatus(string status)
     {
         return Ok(await _leaveRepository.FilterByStatus(status));
     }
 
-    [HttpGet("current")]
-    public async Task<IActionResult> EmployeesCurrentlyOnLeave()
+    [HttpGet("statistics")]
+    public async Task<IActionResult> GetLeaveStatistics()
     {
-        return Ok(await _leaveRepository.GetEmployeesCurrentlyOnLeave());
+        return Ok(await _leaveRepository.GetLeaveStatistics());
     }
 }

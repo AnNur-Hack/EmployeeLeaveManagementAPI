@@ -1,24 +1,17 @@
-﻿using EmployeeLeaveManagementAPI.Models;
+﻿using EmployeeLeaveManagementAPI.DTOs;
+
 
 namespace EmployeeLeaveManagementAPI.Repositories;
 
 public interface ILeaveRepository
 {
-    Task<IEnumerable<LeaveRequest>> GetAllLeaves();
-
-    Task<LeaveRequest> GetLeaveById(int id);
-
-    Task<LeaveRequest> CreateLeave(CreateLeaveRequestDtos dto);
-
-    Task<LeaveRequest> UpdateLeave(LeaveRequest leave);
-
+    Task<List<LeaveResponseDto>> GetAllLeaves();
+    Task<LeaveResponseDto> GetLeaveById(int id);
+    Task<LeaveResponseDto> CreateLeave(SubmitLeaveDto dto);
+    Task<LeaveResponseDto> UpdateLeave(int id, SubmitLeaveDto dto);
     Task<bool> DeleteLeave(int id);
-
-    Task<LeaveRequest> ApproveLeave(int id);
-
-    Task<LeaveRequest> RejectLeave(int id);
-
-    Task<IEnumerable<LeaveRequest>> FilterByStatus(string status);
-
-    Task<IEnumerable<Employee>> GetEmployeesCurrentlyOnLeave();
+    Task<LeaveResponseDto> ApproveLeave(int id, LeaveActionDto dto);
+    Task<LeaveResponseDto> RejectLeave(int id, LeaveActionDto dto);
+    Task<List<LeaveResponseDto>> FilterByStatus(string status);
+    Task<List<LeaveStatisticsDto>> GetLeaveStatistics();
 }

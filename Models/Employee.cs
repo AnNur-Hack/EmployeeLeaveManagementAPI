@@ -3,16 +3,17 @@
 public class Employee
 {
     public int Id { get; set; }
-
-    public string FullName { get; set; } = string.Empty;
-
-    public string Email { get; set; } = string.Empty;
-
-    public string Department { get; set; } = string.Empty;
-
+    public string FullName { get; set; }
+    public string Email { get; set; }
+    public string Department { get; set; }
     public DateTime DateJoined { get; set; }
 
-    // One Employee -> Many Leave Requests
     public ICollection<LeaveRequest> LeaveRequests { get; set; }
-        = new List<LeaveRequest>();
+    public ICollection<LeaveApproval> LeaveApprovals { get; set; }
+
+    public Employee()
+    {
+        LeaveRequests = new List<LeaveRequest>();
+        LeaveApprovals = new List<LeaveApproval>();
+    }
 }
