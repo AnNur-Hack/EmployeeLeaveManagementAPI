@@ -50,7 +50,7 @@ namespace EmployeeLeaveManagementAPI.Migrations
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,7 +73,7 @@ namespace EmployeeLeaveManagementAPI.Migrations
                         column: x => x.ApproverId,
                         principalTable: "Employees",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_LeaveApprovals_LeaveRequests_LeaveRequestId",
                         column: x => x.LeaveRequestId,

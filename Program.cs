@@ -12,8 +12,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+
+
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
@@ -25,6 +28,14 @@ builder.Services.AddScoped<IValidator<UpdateEmployeeDto>, UpdateEmployeeValidato
 builder.Services.AddScoped<IValidator<SubmitLeaveDto>, SubmitLeaveValidator>();
 builder.Services.AddScoped<IValidator<LeaveActionDto>, LeaveActionValidator>();
 
+
+builder.Services.AddCors(o => o.AddPolicy("Dev",
+    p => p.WithOrigins("http://localhost:5173")
+        .AllowAnyHeader().AllowAnyMethod()));
+
+
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -33,6 +44,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+app.UseCors("Dev");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
