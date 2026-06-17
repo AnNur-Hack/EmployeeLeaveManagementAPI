@@ -83,7 +83,7 @@ public class LeaveRepository : ILeaveRepository
             StartDate = dto.StartDate,
             EndDate = dto.EndDate,
             Reason = dto.Reason,
-            DateCreated = DateTime.Now
+            DateCreated = DateTime.UtcNow
         };
 
         await _dbContext.LeaveRequests.AddAsync(leave);
@@ -169,7 +169,7 @@ public class LeaveRepository : ILeaveRepository
             ApproverId = dto.ApproverId,
             Action = "Approve",
             Reason = dto.Reason,
-            DateActed = DateTime.Now
+            DateActed = DateTime.UtcNow
         };
 
         await _dbContext.LeaveApprovals.AddAsync(approval);
@@ -228,7 +228,7 @@ public class LeaveRepository : ILeaveRepository
             ApproverId = dto.ApproverId,
             Action = "Reject",
             Reason = dto.Reason,
-            DateActed = DateTime.Now
+            DateActed = DateTime.UtcNow
         };
 
         await _dbContext.LeaveApprovals.AddAsync(approval);

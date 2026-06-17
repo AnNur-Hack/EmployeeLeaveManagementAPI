@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeLeaveManagementAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigration : Migration
+    public partial class InitialaMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

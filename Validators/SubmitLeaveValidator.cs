@@ -22,7 +22,7 @@ public class SubmitLeaveValidator : AbstractValidator<SubmitLeaveDto>
         RuleFor(x => x.StartDate)
             .NotEmpty()
             .WithMessage("Start date is required")
-            .GreaterThanOrEqualTo(DateTime.Today)
+            .GreaterThanOrEqualTo(DateTime.UtcNow.Date)
             .WithMessage("Start date cannot be in the past");
 
         RuleFor(x => x.EndDate)

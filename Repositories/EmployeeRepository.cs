@@ -74,7 +74,7 @@ public class EmployeeRepository : IEmployeeRepository
             FullName = dto.FullName,
             Email = dto.Email,
             Department = dto.Department,
-            DateJoined = DateTime.Now
+            DateJoined = DateTime.UtcNow
         };
 
         await _dbContext.Employees.AddAsync(employee);
